@@ -325,6 +325,7 @@ public class CarController : MonoBehaviour
 
     private void Rotate()
     {
+        /*
         float steeringAngle = wheels[0].WheelCollider.steerAngle;
         
         if (steeringInput != 0)
@@ -332,12 +333,22 @@ public class CarController : MonoBehaviour
             steeringAngle += steeringInput * steeringCurve.Evaluate(speed);
             
         }
-        /* {
-            steeringAngle = steeringInput * steeringCurve.Evaluate (speed);
-            steeringAngle += Vector3.SignedAngle(transform.forward, rb.velocity + transform.forward, Vector3.up);
-        }*/
 
         steeringAngle = Mathf.Clamp(steeringAngle, minSteeringAngle, maxSteeringAngle);
+        */
+
+        float steeringAngle = steeringInput * steeringCurve.Evaluate(speed);
+
+        if (gasInput > 0)
+        {
+            steeringAngle += Vector3.SignedAngle(transform.forward, rb.velocity + transform.forward, Vector3.up);
+        }
+        else
+        {
+            steeringAngle += wheels[0].WheelCollider.steerAngle * steeringCurve.Evaluate(speed);
+        }
+
+        steeringAngle = Mathf.Clamp(steeringAngle, -60f, 60f);
 
         wheels[0].WheelCollider.steerAngle = steeringAngle;
         wheels[1].WheelCollider.steerAngle = steeringAngle;
