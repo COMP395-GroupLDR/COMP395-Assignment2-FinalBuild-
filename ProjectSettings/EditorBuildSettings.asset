@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 156bb58f948045742976899192bb9949
+  - enabled: 1
     path: Assets/Scenes/Level_1.unity
     guid: fb67dc7b16f088146a7c9ea3031387b4
+  - enabled: 1
+    path: Assets/Scenes/DrivingTest_ThreePointTurn.unity
+    guid: 8ac765fc85bb720498e14982585ea21b
   m_configObjects: {}
