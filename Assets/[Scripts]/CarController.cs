@@ -44,7 +44,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private ParticleSystem smokePrefab;
 
     [Header("Input Key Codes")]
-    [SerializeField] private KeyCode turnKeyCode;
+    [SerializeField] private KeyCode startCarKeyCode;
     [SerializeField] private KeyCode hornKeyCode;
     [SerializeField] private KeyCode seatBeltKeyCode;
     [SerializeField] private KeyCode handBrakeKeyCode;
@@ -206,7 +206,7 @@ public class CarController : MonoBehaviour
             footBrakeInput = 0;
         }
 
-        if (Input.GetKeyDown(turnKeyCode))
+        if (Input.GetKeyDown(startCarKeyCode))
         {
             started = !started;
             audioManager.PlayAudio(CarAudioManager.AudioType.KEY_TURN, false);
@@ -325,30 +325,53 @@ public class CarController : MonoBehaviour
 
     private void Rotate()
     {
-        /*
+
         float steeringAngle = wheels[0].WheelCollider.steerAngle;
-        
+
         if (steeringInput != 0)
         {
             steeringAngle += steeringInput * steeringCurve.Evaluate(speed);
-            
+
         }
-
-        steeringAngle = Mathf.Clamp(steeringAngle, minSteeringAngle, maxSteeringAngle);
-        */
-
-        float steeringAngle = steeringInput * steeringCurve.Evaluate(speed);
 
         if (gasInput > 0)
         {
-            steeringAngle += Vector3.SignedAngle(transform.forward, rb.velocity + transform.forward, Vector3.up);
-        }
-        else
-        {
-            steeringAngle += wheels[0].WheelCollider.steerAngle * steeringCurve.Evaluate(speed);
+            float adjustmentAngle = Vector3.SignedAngle(transform.forward, rb.velocity + transform.forward, Vector3.up);
+            //print("Adj angle: " + adjustmentAngle);
+            //print("Steering angle:" +  steeringAngle);
+            if(steeringAngle > 0)
+            {
+                steeringAngle -= adjustmentAngle;
+                steeringAngle = Mathf.Clamp(steeringAngle, 0, maxSteeringAngle);
+            }
+            else
+            {
+                steeringAngle -= adjustmentAngle;
+                steeringAngle = Mathf.Clamp(steeringAngle, minSteeringAngle, 0);
+            } 
         }
 
-        steeringAngle = Mathf.Clamp(steeringAngle, -60f, 60f);
+        steeringAngle = Mathf.Clamp(steeringAngle, minSteeringAngle, maxSteeringAngle);
+
+
+        //float steeringAngle = steeringInput * steeringCurve.Evaluate(speed);
+
+        //print("Steering angle before checking for gas: " + steeringAngle);        
+
+        //if (gasInput > 0)
+        //{
+        //    steeringAngle += Vector3.SignedAngle(transform.forward, rb.velocity + transform.forward, Vector3.up);
+        //}
+        //else if (steeringInput != 0)
+        //{
+        //    steeringAngle += wheels[0].WheelCollider.steerAngle * steeringCurve.Evaluate(speed);
+        //    print("Else statment steering angle: " + steeringAngle);
+        //}
+
+        //steeringAngle = Mathf.Clamp(steeringAngle, -60f, 60f);
+
+        //print("Steering multiplier" + steeringCurve.Evaluate(speed));
+        //print("Steering Angle after gas: " + steeringAngle);
 
         wheels[0].WheelCollider.steerAngle = steeringAngle;
         wheels[1].WheelCollider.steerAngle = steeringAngle;
