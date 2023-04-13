@@ -7,7 +7,7 @@ public class MainMenuController : MonoBehaviour
 {
     public void Play()
     {
-        SceneManager.LoadScene("DrivingTest_ThreePointTurn");
+        SceneManager.LoadScene(1);
     }
 
     public void ExitGame()

@@ -4505,7 +4505,7 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.005
+    x: 0.27
     y: 0.7
     width: 0.2
     height: 0.21
@@ -9769,8 +9769,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.9647367, z: 1}
+  m_Center: {x: -0, y: 0.017632104, z: -0}
 --- !u!54 &9181954676455845028
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9822,16 +9822,16 @@ MonoBehaviour:
     footBrakeWeight: 0.3
     handBrakeWeight: 0.2
   slipSmokeAllowance: 0.5
-  motorPower: 100
+  motorPower: 500
   brakePower: 5000
-  minSteeringAngle: -60
-  maxSteeringAngle: 60
+  minSteeringAngle: -33
+  maxSteeringAngle: 33
   steeringCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0.5
+      time: 0.34166718
+      value: 9.845116
       inSlope: -0.001081039
       outSlope: -0.001081039
       tangentMode: 0
@@ -9851,7 +9851,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   smokePrefab: {fileID: 3113504319836508359, guid: 50885e3ef06d6eb47b0bb6f6c6c3c1cd, type: 3}
-  turnKeyCode: 107
+  startCarKeyCode: 13
   hornKeyCode: 104
   seatBeltKeyCode: 98
   handBrakeKeyCode: 304
