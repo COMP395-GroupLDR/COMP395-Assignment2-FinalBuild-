@@ -7,11 +7,11 @@ using UnityEngine.UIElements;
 
 public class GameController : MonoBehaviour
 {
-    private static GameController instance;
-    public static GameController _instance { get { return instance; } }
+    //private static GameController instance;
+    //public static GameController _instance { get { return instance; } }
 
     [Header("Score Settings")]
-    [SerializeField] private int subtractScoreOnConeHit = 5;
+    [SerializeField] private int trafficConeHitPenalty = 5;
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject starsPanel;
     [SerializeField] private int minimumForThreeStars = 75;
@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        instance= this;
+        //instance= this;
         score = 100;
     }
 
@@ -39,11 +39,15 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void TrafficConeHit()
+    // hazardType is a gameobject tag provided by HazardController script (Must add tags to hazard objects)
+    public void HazardHit(string hazardType)
     {
-        if (score != 0)
+        switch(hazardType)
         {
-            score -= subtractScoreOnConeHit;
+            case "TrafficCone":
+                Debug.Log("Traffic Cone Hit!");
+                score -= trafficConeHitPenalty;
+                break;
         }
     }
 

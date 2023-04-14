@@ -5,7 +5,7 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TrafficConeController : MonoBehaviour
+public class HazardController : MonoBehaviour
 {
     //private GameController gameController;
     private GameController gameController;
@@ -28,7 +28,7 @@ public class TrafficConeController : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                gameController.TrafficConeHit();
+                gameController.HazardHit(gameObject.tag);
             }
         }
     }
