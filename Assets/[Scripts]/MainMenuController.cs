@@ -10,6 +10,11 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void Menu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void ExitGame()
     {
         UnityEditor.EditorApplication.isPlaying = false;
