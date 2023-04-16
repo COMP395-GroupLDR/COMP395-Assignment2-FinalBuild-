@@ -7,11 +7,8 @@ using UnityEngine.UIElements;
 
 public class GameController : MonoBehaviour
 {
-    //private static GameController instance;
-    //public static GameController _instance { get { return instance; } }
-
     [Header("Score Settings")]
-    [SerializeField] private int trafficConeHitPenalty = 5;
+    [SerializeField] private int scorePenalty = 5;
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject starsPanel;
     [SerializeField] private int minimumForThreeStars = 75;
@@ -32,6 +29,7 @@ public class GameController : MonoBehaviour
     void Update()
     {
         UpdateScore();
+        CarState();
 
         if(score == 0)
         {
@@ -46,8 +44,24 @@ public class GameController : MonoBehaviour
         {
             case "TrafficCone":
                 Debug.Log("Traffic Cone Hit!");
-                score -= trafficConeHitPenalty;
+                score -= scorePenalty;
                 break;
+        }
+    }
+
+    public void CarState()
+    {
+        if (CarController.instance.mode == CarController.Mode.DRIVE && CarController.instance.lightMode == CarController.DirectionalLightMode.RIGHT_ON)
+        {
+            score -= scorePenalty;
+        }
+        if (CarController.instance.mode == CarController.Mode.REVERSE && CarController.instance.lightMode == CarController.DirectionalLightMode.LEFT_ON)
+        {
+            score -= scorePenalty;
+        }
+        if (!CarController.instance.seatBeltTightened && CarController.instance.mode == CarController.Mode.DRIVE)
+        {
+            score -= scorePenalty;
         }
     }
 

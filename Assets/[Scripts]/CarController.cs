@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
+    public static CarController instance;
     [System.Serializable]
     public class Wheel
     {
@@ -62,9 +63,9 @@ public class CarController : MonoBehaviour
     [SerializeField] private int handBrakeInput; // parking brake
     [SerializeField] private int footBrakeInput;
     [SerializeField] private float steeringInput;
-    [SerializeField] private DirectionalLightMode lightMode;
-    [SerializeField] private bool seatBeltTightened;
-    [SerializeField] private Mode mode;
+    [SerializeField] public DirectionalLightMode lightMode;
+    [SerializeField] public bool seatBeltTightened;
+    [SerializeField] public Mode mode;
 
     private Rigidbody rb;
 
