@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class GameController : MonoBehaviour
 {
+    public static GameController instance;
     [Header("Score Settings")]
     [SerializeField] private int scorePenalty = 5;
     [SerializeField] private Text scoreText;
@@ -17,6 +18,14 @@ public class GameController : MonoBehaviour
 
     private int score;
     private int stars;
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +38,6 @@ public class GameController : MonoBehaviour
     void Update()
     {
         UpdateScore();
-        CarState();
 
         if(score == 0)
         {
@@ -59,7 +67,7 @@ public class GameController : MonoBehaviour
         {
             score -= scorePenalty;
         }
-        if (!CarController.instance.seatBeltTightened && CarController.instance.mode == CarController.Mode.DRIVE)
+        if (!CarController.instance.seatBeltTightened && CarController.instance.mode != CarController.Mode.PARK)
         {
             score -= scorePenalty;
         }

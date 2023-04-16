@@ -80,7 +80,14 @@ public class CarController : MonoBehaviour
     private Action<float> speedUpdateCallback;
     private Action<int, float> carWheelAngleUpdateCallback;
 
-    // Start is called before the first frame update
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -172,11 +179,13 @@ public class CarController : MonoBehaviour
             if (Input.GetKeyDown(turnLeftLightKeyCode))
             {
                 ChangeLightMode(DirectionalLightMode.LEFT_ON);
+                GameController.instance.CarState();
             }
 
             if (Input.GetKeyDown(turnRightLightKeyCode))
             {
                 ChangeLightMode(DirectionalLightMode.RIGHT_ON);
+                GameController.instance.CarState();
             }
 
             float positiveInput = Mathf.Max(Input.GetAxis("Vertical"), 0f); // only take "upward"
@@ -237,6 +246,7 @@ public class CarController : MonoBehaviour
         if (Input.GetKeyDown(seatBeltKeyCode))
         {
             seatBeltTightened = !seatBeltTightened;
+            GameController.instance.CarState();
 
             audioManager.PlayAudio(CarAudioManager.AudioType.SEATBELT, false);
 
@@ -288,10 +298,12 @@ public class CarController : MonoBehaviour
         if (up)
         {
             mode = (int)mode - 1 < 0 ? mode : (Mode)((int)mode - 1);
+            GameController.instance.CarState();
         }
         else
         {
             mode = (int)mode + 1 > (int)Mode.DRIVE ? mode : (Mode)((int)mode + 1);
+            GameController.instance.CarState();
         }
 
         pModeCallback?.Invoke(mode == Mode.PARK ? CarIconDisplay.IconState.ON : CarIconDisplay.IconState.OFF);
