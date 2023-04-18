@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine;
 
 //from https://answers.unity.com/questions/20337/flipmirror-camera.html
 [RequireComponent(typeof(Camera))]

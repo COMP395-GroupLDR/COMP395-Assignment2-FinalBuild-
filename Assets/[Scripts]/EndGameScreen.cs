@@ -3,22 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class EndGameScreen : MonoBehaviour
 {
-    public Text pointsText;
-    public void Setup(int score)
+    public TextMeshProUGUI pointsText;
+    public GameController gameController;
+    public void Setup()
     {
+        int score = gameController.score;
         gameObject.SetActive(true);
         pointsText.text = score.ToString() + " POINTS";
+        Time.timeScale = 0;
     }
     public void RestarButton()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene(0);
     }
 
     public void ExitButton()
     {
-        SceneManager.LoadScene("Exit");
+        //UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 }

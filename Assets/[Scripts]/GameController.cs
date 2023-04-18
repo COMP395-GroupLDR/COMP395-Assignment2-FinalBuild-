@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private int minimumForTwoStars = 50;
     [SerializeField] private int minimumForOneStars = 25;
 
-    private int score;
+    public int score { get; private set; }
     private int stars;
 
     void Awake()
